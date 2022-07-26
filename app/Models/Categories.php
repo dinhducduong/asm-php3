@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
     use HasFactory;
+    protected $table = 'categories';
+    protected $fillable = ['title','image','status'];
+
+    /**
+     * @return mixed
+     */
+    public function getCategory(){
+        $data = Categories::paginate(5);
+        return $data;
+    }
+
 }
