@@ -19,7 +19,17 @@ class CourseController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function addCourse(){
         return view('adminhtml.course.course_view_add');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function editCourse(){
+        return view('adminhtml.course.course_view_edit');
     }
 }

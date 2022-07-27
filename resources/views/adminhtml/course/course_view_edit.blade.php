@@ -1,7 +1,7 @@
 @extends('adminhtml.home_admin_layout')
 @section('content')
     <div class="title">
-        <h3 class="p-3">Add New Course</h3>
+        <h3 class="p-3">Edit Course</h3>
     </div>
     <div class="row p-3">
         <form method="post">
