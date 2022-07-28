@@ -61,9 +61,6 @@
                 @endforeach
 
             </div>
-            <div class="d-flex justify-content-end">
-                {{ $data_cource->links() }}
-            </div>
         </div><!-- end of .container-->
     </section>
     <!-- <section> close ============================-->

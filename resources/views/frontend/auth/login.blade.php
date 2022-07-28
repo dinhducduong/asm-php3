@@ -26,25 +26,32 @@
                 </div>
             </div>
             <div class="card-body">
-                <form>
+                <form method="post">
+                    @csrf
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="username">
+                        <input type="text" class="form-control" placeholder="Email" name="email">
 
                     </div>
+                    @if ($errors->has('email'))
+                        <span class="text-danger"> {{ $errors->first('email') }}</span>
+                    @endif
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input type="password" class="form-control" placeholder="password">
+                        <input type="password" class="form-control" placeholder="password" name="password">
                     </div>
+                    @if ($errors->has('password'))
+                        <span class="text-danger"> {{ $errors->first('password') }}</span>
+                    @endif
                     <div class="row align-items-center remember">
                         <input type="checkbox">Remember Me
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Login" class="btn float-right login_btn">
+                        <button type="submit" name="btnSub" class="btn float-right login_btn">Login</button>
                     </div>
                 </form>
             </div>

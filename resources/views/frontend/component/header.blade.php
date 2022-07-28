@@ -1,5 +1,5 @@
+<?php $objUser = Auth::user();?>
 <section class="bg-danger py-2 d-none d-sm-block">
-
     <div class="container"><img src="assets/img/banner/sales.png" height="51" alt="" />
         <div class="row align-items-center">
             <div class="col-auto d-none d-lg-block">
@@ -33,7 +33,12 @@
                 <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="pricing.html">Giá</a></li>
                 <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="{{route('course')}}">Khóa học</a></li>
                 <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="user-research.html">Nghiên cứu</a></li>
-            </ul><a class="btn btn-primary order-1 order-lg-0" href="{{route('login')}}">Đăng nhập</a>
+            </ul>
+            @if(!$objUser)
+                <a class="btn btn-primary order-1 order-lg-0" href="{{route('login')}}">Đăng nhập</a>
+            @else
+                <a class="btn btn-outline-secondary" href="{{url('logout')}}">Xin chào: <?= $objUser->name?></a>
+            @endif
             <form class="d-flex my-3 d-block d-lg-none">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-primary" type="submit">Search</button>

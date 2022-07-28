@@ -21,7 +21,7 @@ class Course extends Model
     protected $fillable = [
         'id',
         'categories_id',
-        'teacher_id',
+        'teachers_id',
         'title',
         'image',
         'price',
@@ -38,7 +38,12 @@ class Course extends Model
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getCourseFeature(){
-        $data = DB::table('courses')->paginate(6);
+        $data = DB::table('courses')->leftJoin('orders','courses.id','=','orders.course_id')
+        ->selectRaw('courses.*,COALESCE(count(orders.course_id),0) total')
+        ->groupBy('courses.id')
+        ->orderBy('total','desc')
+          ->take(12)
+        ->get();
         return $data;
     }
 
