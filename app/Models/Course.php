@@ -37,24 +37,26 @@ class Course extends Model
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getCourseFeature(){
-        $data = DB::table('courses')->leftJoin('orders','courses.id','=','orders.course_id')
-        ->selectRaw('courses.*,COALESCE(count(orders.course_id),0) total')
-        ->groupBy('courses.id')
-        ->orderBy('total','desc')
-          ->take(12)
-        ->get();
+    public function getCourseFeature()
+    {
+        $data = DB::table('courses')->leftJoin('orders', 'courses.id', '=', 'orders.course_id')
+            ->selectRaw('courses.*,COALESCE(count(orders.course_id),0) total')
+            ->groupBy('courses.id')
+            ->orderBy('total', 'desc')
+            ->take(12)
+            ->get();
         return $data;
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getCourse(){
+    public function getCourse()
+    {
         $data = DB::table('courses')
             ->join('categories', 'categories.id', '=', 'courses.categories_id')
             ->join('teachers', 'teachers.id', '=', 'courses.teachers_id')
-            ->join('levels', 'levels.id' , '=', 'courses.levels_id')
+            ->join('levels', 'levels.id', '=', 'courses.levels_id')
             ->select('courses.*', 'categories.title as title_cate', 'teachers.*', 'teachers.name as name_teacher', 'levels.title as title_levels')
             ->paginate(24);
         return $data;
@@ -64,12 +66,13 @@ class Course extends Model
      * @param $id
      * @return \Illuminate\Support\Collection
      */
-    public function getCourseDetail($id){
+    public function getCourseDetail($id)
+    {
         $data = DB::table('courses')
             ->join('categories', 'categories.id', '=', 'courses.categories_id')
             ->join('teachers', 'teachers.id', '=', 'courses.teachers_id')
-            ->join('levels', 'levels.id' , '=', 'courses.levels_id')
-            ->where('courses.id',$id)
+            ->join('levels', 'levels.id', '=', 'courses.levels_id')
+            ->where('courses.id', $id)
             ->select('courses.*', 'categories.title as title_cate', 'teachers.*', 'teachers.id as id_teacher', 'levels.title as title_levels')
             ->get();
         return $data;
@@ -79,14 +82,34 @@ class Course extends Model
      * @param $id
      * @return int
      */
-    public function getCountCourseTeacher($id){
+    public function getCountCourseTeacher($id)
+    {
         $data = DB::table('courses')->where('teachers_id', $id)->count();
         return $data;
     }
 
-    public function saveCourse($params){
+    public function saveCourseAdd($params)
+    {
         $data = array_merge($params['cols']);
         $res = DB::table('courses')->insertGetId($data);
         return $res;
+    }
+
+    public function saveCourseEdit($params)
+    {
+        $data = array_merge($params['cols']);
+        $res = DB::table('courses')->update($data);
+        return $res;
+    }
+    public function EditCourse($id)
+    {
+        $data = DB::table('courses')->find($id);
+        return $data;
+    }
+
+    public function deleteCourse($param)
+    {
+        $data = DB::table('courses')->delete($param);
+        return $data;
     }
 }
