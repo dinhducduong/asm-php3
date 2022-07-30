@@ -1,4 +1,5 @@
 @extends('adminhtml.home_admin_layout')
+@section('title', $title)
 @section('content')
     <div class="card">
         <div class="row justify-content-end">

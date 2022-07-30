@@ -84,4 +84,9 @@ class Course extends Model
         return $data;
     }
 
+    public function saveCourse($params){
+        $data = array_merge($params['cols']);
+        $res = DB::table('courses')->insertGetId($data);
+        return $res;
+    }
 }

@@ -45,7 +45,7 @@
                         </g>
                     </svg>
                 </div>
-                <span class="nav-link-text ms-1">Catelog</span>
+                <span class="nav-link-text ms-1">Courses</span>
             </a>
         </li>
         <li class="nav-item">

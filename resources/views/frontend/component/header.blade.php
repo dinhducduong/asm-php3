@@ -37,7 +37,7 @@
             @if(!$objUser)
                 <a class="btn btn-primary order-1 order-lg-0" href="{{route('login')}}">Đăng nhập</a>
             @else
-                <a class="btn btn-outline-secondary" href="{{url('logout')}}">Xin chào: <?= $objUser->name?></a>
+                <a class="btn btn-outline-secondary" href="{{url('logout')}}">Xin chào: {{$objUser->name}}</a>
             @endif
             <form class="d-flex my-3 d-block d-lg-none">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

@@ -1,10 +1,12 @@
 @extends('adminhtml.home_admin_layout')
+@section('title', $title)
 @section('content')
     <div class="title">
         <h3 class="p-3">Edit Course</h3>
     </div>
     <div class="row p-3">
         <form method="post">
+            @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
