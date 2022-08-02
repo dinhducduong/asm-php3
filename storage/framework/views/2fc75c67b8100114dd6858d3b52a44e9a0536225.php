@@ -1,5 +1,4 @@
-@extends('frontend.home_layout')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section class="pb-11 pt-7 bg-600">
     <div class="container">
         <div class="row">
@@ -11,18 +10,18 @@
                         <label class="form-label" for="inputCategories">Danh mục</label>
                         <select class="form-select" id="inputCategories">
                             <option selected="selected" disabled>Select</option>
-                            @foreach($cate as $key)
-                            <option>{{$key->title}}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $cate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option><?php echo e($key->title); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                     <div class="col-sm-6 col-md-3">
                         <label class="form-label" for="inputLevel">Cấp bậc</label>
                         <select class="form-select" id="inputLevel">
                             <option selected="selected" disabled>Tất cả</option>
-                            @foreach($level as $key)
-                            <option>{{$key->title}}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $level; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option><?php echo e($key->title); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </div>
                     <div class="col-sm-6 col-md-3">
@@ -38,9 +37,9 @@
                         <label class="form-label" for="inputInstructor">Giảng Viên</label>
                         <select class="form-select" id="inputInstructor">
                             <option selected="selected" disabled>Tất cả giảng viên </option>
-                            @foreach($user as $key)
-                            <option>{{ $key->name}}</option>
-                            @endforeach
+                            <?php $__currentLoopData = $user; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option><?php echo e($key->name); ?></option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                         </select>
                     </div>
@@ -61,23 +60,26 @@
 <section class="pb-0" style="margin-top:-17rem">
     <div class="container">
         <div class="row">
-            @foreach($data as $key)
+            <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="col-md-4 mb-4">
-                <div class="card h-100"><img class="card-img-top w-100" src="{{$key->image}}" alt="courses" />
+                <div class="card h-100"><img class="card-img-top w-100" src="<?php echo e($key->image); ?>" alt="courses" />
                     <div class="card-body">
-                        <h5 class="font-sans-serif fw-bold fs-md-0 fs-lg-1">{{$key->title}}</h5>
-                        <h4 class="text-danger">{{$key->price}} đ</h4>
+                        <h5 class="font-sans-serif fw-bold fs-md-0 fs-lg-1"><?php echo e($key->title); ?></h5>
+                        <h4 class="text-danger"><?php echo e($key->price); ?> đ</h4>
                         <a class="text-muted fs--1 stretched-link text-decoration-none"
-                            href="{{ route('detail_course', ['id' => $key->id]) }}">{{$key->description_short}}</a>
+                            href="<?php echo e(route('detail_course', ['id' => $key->id])); ?>"><?php echo e($key->description_short); ?></a>
                     </div>
                 </div>
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <div class="d-flex justify-content-end">
-            {{ $data->links() }}
+            <?php echo e($data->links()); ?>
+
         </div>
     </div><!-- end of .container-->
 
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('frontend.home_layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Laravel\asm_php3\resources\views/frontend/course/list_course_view.blade.php ENDPATH**/ ?>

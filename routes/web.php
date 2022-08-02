@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Category\CategoryController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,18 @@ Route::get('/course/{id}', [\App\Http\Controllers\Frontend\Course\CourseControll
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
-        Route::prefix('course')->group(function (){
+        Route::prefix('course')->group(function () {
             Route::get('/list', [\App\Http\Controllers\Admin\Course\CourseController::class, 'getCourse']);
             Route::any('/add', [\App\Http\Controllers\Admin\Course\CourseController::class, 'addCourse']);
             Route::any('/edit/{id}', [\App\Http\Controllers\Admin\Course\CourseController::class, 'editCourse']);
             Route::any('/delete/{id}', [\App\Http\Controllers\Admin\Course\CourseController::class, 'deleteCourse']);
+        });
+
+        Route::prefix('category')->group(function () {
+            Route::get('/list', [CategoryController::class, 'getCategory']);
+            Route::any('/add', [CategoryController::class, 'addCategory']);
+            Route::any('/edit/{id}', [CategoryController::class, 'editCategory']);
+            Route::any('/delete/{id}', [CategoryController::class, 'deleteCategory']);
         });
     });
 });

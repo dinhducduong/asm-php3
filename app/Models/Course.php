@@ -54,11 +54,14 @@ class Course extends Model
     public function getCourse()
     {
         $data = DB::table('courses')
+            ->select('courses.*', 'categories.title as title_cate', 'levels.title as title_levels')
             ->join('categories', 'categories.id', '=', 'courses.categories_id')
-            ->join('teachers', 'teachers.id', '=', 'courses.teachers_id')
-            ->join('levels', 'levels.id', '=', 'courses.levels_id')
-            ->select('courses.*', 'categories.title as title_cate', 'teachers.*', 'teachers.name as name_teacher', 'levels.title as title_levels')
+            // ->join('users', 'users.id', '=', 'courses.users_id')
+            ->join('levels', 'levels.id', '=', 'courses.levels_id')->orderBy('id', 'desc')
             ->paginate(24);
+        // $data = DB::table('courses')
+        //     ->select('courses.*', 'categories.title as title_cate')
+        //     ->join('categories', 'categories.id', '=', 'courses.categories_id')->paginate(10);
         return $data;
     }
 
@@ -70,10 +73,10 @@ class Course extends Model
     {
         $data = DB::table('courses')
             ->join('categories', 'categories.id', '=', 'courses.categories_id')
-            ->join('teachers', 'teachers.id', '=', 'courses.teachers_id')
+            ->join('users', 'users.id', '=', 'courses.users_id')
             ->join('levels', 'levels.id', '=', 'courses.levels_id')
             ->where('courses.id', $id)
-            ->select('courses.*', 'categories.title as title_cate', 'teachers.*', 'teachers.id as id_teacher', 'levels.title as title_levels')
+            ->select('courses.*', 'categories.title as title_cate', 'users.*', 'users.id as id_user', 'levels.title as title_levels')
             ->get();
         return $data;
     }
@@ -82,9 +85,9 @@ class Course extends Model
      * @param $id
      * @return int
      */
-    public function getCountCourseTeacher($id)
+    public function getCountCourseUser($id)
     {
-        $data = DB::table('courses')->where('teachers_id', $id)->count();
+        $data = DB::table('courses')->where('users_id', $id)->count();
         return $data;
     }
 
@@ -97,8 +100,16 @@ class Course extends Model
 
     public function saveCourseEdit($params)
     {
-        $data = array_merge($params['cols']);
-        $res = DB::table('courses')->update($data);
+        $dataUpdate = [];
+        foreach ($params['cols'] as $colName => $value) {
+            if ($colName == 'id') continue;
+            if (in_array($colName, $this->fillable)) {
+                $dataUpdate[$colName] = (strlen($value) == 0 ? null : $value);
+            }
+        }
+        $res = DB::table($this->table)
+            ->where('id', '=', $params['cols']['id'])
+            ->update($dataUpdate);
         return $res;
     }
     public function EditCourse($id)
@@ -109,7 +120,7 @@ class Course extends Model
 
     public function deleteCourse($param)
     {
-        $data = DB::table('courses')->delete($param);
-        return $data;
+        $data = DB::table('courses')->findOrFail($param);
+        $data->delete();
     }
 }

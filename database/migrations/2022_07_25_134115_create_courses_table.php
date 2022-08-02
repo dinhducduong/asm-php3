@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->integer('categories_id');
-            $table->integer('teachers_id');
+            $table->integer('users_id');
             $table->integer('levels_id');
             $table->text('title');
             $table->text('image');
