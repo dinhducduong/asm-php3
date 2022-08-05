@@ -19,12 +19,13 @@ Route::any('/login', [\App\Http\Controllers\Frontend\AuthController::class, 'ind
 Route::any('/logout', [\App\Http\Controllers\Frontend\AuthController::class, 'logout']);
 //
 Route::get('/course', [\App\Http\Controllers\Frontend\Course\CourseController::class, 'index'])->name('course');
-Route::get('/course/{id}', [\App\Http\Controllers\Frontend\Course\CourseController::class, 'getCourseDetail'])->name('detail_course');
+Route::any('/course/{id}', [\App\Http\Controllers\Frontend\Course\CourseController::class, 'getCourseDetail'])->name('detail_course');
 // Route::get('/checkout', [\App\Http\Controllers\Frontend\Order\OrderController::class, 'checkout'])->name('checkout');
 
 //
 //
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [\App\Http\Controllers\Frontend\AuthController::class, 'profile']);
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Admin\HomeController::class, 'index']);
         Route::prefix('course')->group(function () {

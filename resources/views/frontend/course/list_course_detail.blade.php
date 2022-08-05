@@ -35,7 +35,13 @@
                         <li class="list-group-item"><strong>Bài giảng </strong>: {{$data_count_course_user}}</li>
                         <li class="list-group-item"><strong>Cấp bậc </strong>: {{$detail_course[0]->title_levels}}</li>
                         <li class="list-group-item"><strong>Danh mục </strong>: {{$detail_course[0]->title_cate}}</li>
-                        <li class="list-group-item"><a href="" class="btn btn-danger">Đăng kí khóa học</a>
+                        <li class="list-group-item"><strong>Giá </strong>: {{$detail_course[0]->price}} $</li>
+                        <li class="list-group-item">
+                            <form method="post">
+                                @csrf
+                                <button type="submit" name="btnSub" class="btn btn-danger">Đăng kí
+                                    khóa học</button>
+                            </form>
                             <p class="text-muted mb-0 mt-4">Liên hệ với giảng viên</p><a class="text-info"
                                 href="#">{{$detail_course[0]->email}}</a>
                         </li>
@@ -44,7 +50,6 @@
             </div>
         </div>
     </div><!-- end of .container-->
-
 </section>
 <!-- <section> close ============================-->
 <!-- ============================================-->

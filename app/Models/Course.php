@@ -56,12 +56,8 @@ class Course extends Model
         $data = DB::table('courses')
             ->select('courses.*', 'categories.title as title_cate', 'levels.title as title_levels')
             ->join('categories', 'categories.id', '=', 'courses.categories_id')
-            // ->join('users', 'users.id', '=', 'courses.users_id')
-            ->join('levels', 'levels.id', '=', 'courses.levels_id')->orderBy('id', 'desc')
+            ->join('levels', 'levels.id', '=', 'courses.levels_id')
             ->paginate(24);
-        // $data = DB::table('courses')
-        //     ->select('courses.*', 'categories.title as title_cate')
-        //     ->join('categories', 'categories.id', '=', 'courses.categories_id')->paginate(10);
         return $data;
     }
 

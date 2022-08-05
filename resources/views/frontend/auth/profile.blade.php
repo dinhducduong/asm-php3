@@ -1,0 +1,59 @@
+@extends('frontend.home_layout')
+@section('title', 'Profile')
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="">
+            <h2>Lịch sử đăng kí khóa học</h2>
+        </div>
+        <div class="row col pt-4">
+            <div class="col-3">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Thông tin cá nhân</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Lịch sử mua khóa học</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-9">
+                <table class="table table-striped table-inverse table-responsive">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên khóa học</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày đăng kí</th>
+                            <th>Vào học</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $key => $value)
+                        <tr>
+                            <td scope="row">#{{$value->id}}</td>
+                            <td>{{$value->title_course}}</td>
+                            <td>
+                                @if ($value->status == 0)
+                                <span>Active</span>
+                                @else
+                                <span>No Active</span>
+                                @endif
+                            </td>
+                            <td>{{$value->created_at}}</td>
+                            <td>
+                                @if ($value->status == 0)
+                                <a href="" class="text-success">Vào học</a>
+                                @else
+                                <a href="" class="text-danger">Kích hoạt khóa học</a>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

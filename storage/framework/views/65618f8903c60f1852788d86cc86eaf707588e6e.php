@@ -34,7 +34,13 @@
                         <li class="list-group-item"><strong>Bài giảng </strong>: <?php echo e($data_count_course_user); ?></li>
                         <li class="list-group-item"><strong>Cấp bậc </strong>: <?php echo e($detail_course[0]->title_levels); ?></li>
                         <li class="list-group-item"><strong>Danh mục </strong>: <?php echo e($detail_course[0]->title_cate); ?></li>
-                        <li class="list-group-item"><a href="" class="btn btn-danger">Đăng kí khóa học</a>
+                        <li class="list-group-item"><strong>Giá </strong>: <?php echo e($detail_course[0]->price); ?> $</li>
+                        <li class="list-group-item">
+                            <form method="post">
+                                <?php echo csrf_field(); ?>
+                                <button type="submit" name="btnSub" class="btn btn-danger">Đăng kí
+                                    khóa học</button>
+                            </form>
                             <p class="text-muted mb-0 mt-4">Liên hệ với giảng viên</p><a class="text-info"
                                 href="#"><?php echo e($detail_course[0]->email); ?></a>
                         </li>
@@ -43,7 +49,6 @@
             </div>
         </div>
     </div><!-- end of .container-->
-
 </section>
 <!-- <section> close ============================-->
 <!-- ============================================-->
