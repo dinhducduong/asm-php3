@@ -8,16 +8,13 @@ use App\Models\Categories;
 use App\Models\Course;
 use App\Models\Level;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Console\View\Components\Alert;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
 {
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
+
     public function getCourse()
     {
         $this->QUERY = new Course();
@@ -35,9 +32,6 @@ class CourseController extends Controller
         return $file->storeAs('images', $fileName, 'public');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function addCourse(RequestCourse $request)
     {
         $users_id = Auth::user();
@@ -63,6 +57,8 @@ class CourseController extends Controller
             }
             $modelCourse = new Course();
             $modelCourse->saveCourseAdd($params);
+            Session::flash('success', 'Thêm thành công');
+            return redirect()->route('list_course');
         }
         return view('adminhtml.course.course_view_add', [
             'title' => "Add Courses",
@@ -75,12 +71,10 @@ class CourseController extends Controller
     public function deleteCourse(Request $request)
     {
         DB::table('courses')->delete($request->id);
-        return redirect('admin/course/list');
+        Session::flash('success', 'Xóa thành công');
+        return redirect()->route('list_course');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function editCourse(RequestCourse $request)
     {
         $QUERY_FIND = new Course();
@@ -105,6 +99,8 @@ class CourseController extends Controller
             unset($params['cols']['_token']);
             $modelCourse = new Course();
             $modelCourse->saveCourseEdit($params);
+            Session::flash('success', 'Cập nhật thành công');
+            return redirect()->route('list_course');
         }
         return view('adminhtml.course.course_view_edit', [
             'title' => "Edit Courses",

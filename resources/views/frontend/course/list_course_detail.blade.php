@@ -29,6 +29,18 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
+                    @if ( Session::has('error') )
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>{{ Session::get('error') }}</strong>
+                        </button>
+                    </div>
+                    @endif
+                    @if ( Session::has('success') )
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>{{ Session::get('success') }}</strong>
+                        </button>
+                    </div>
+                    @endif
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Đã đăng kí </strong>: {{$count_order}} Học viên</li>
                         <li class="list-group-item"><strong>Giảng viên </strong>: {{$detail_course[0]->name}}</li>

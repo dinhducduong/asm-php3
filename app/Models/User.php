@@ -45,7 +45,14 @@ class User extends Authenticatable
 
     public function getUser()
     {
-        $data = DB::table('users')->get();
+        $data = DB::table('users')->paginate(24);
         return $data;
+    }
+
+    public function addUser($params)
+    {
+        $data = array_merge($params['cols']);
+        $res = DB::table('users')->insertGetId($data);
+        return $res;
     }
 }

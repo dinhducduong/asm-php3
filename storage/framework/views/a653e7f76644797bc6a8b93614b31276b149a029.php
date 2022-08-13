@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Login Page</title>
+    <title>Register Account</title>
     <!--Made with love by Mutiullah Samim -->
 
     <!--Bootsrap 4 CDN-->
@@ -20,25 +20,29 @@
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header">
-                    <h3>Sign In</h3>
+                    <h3>Sign Up</h3>
                     <div class="d-flex justify-content-end social_icon">
                         <span><i class="fab fa-facebook-square"></i></span>
                         <span><i class="fab fa-google-plus-square"></i></span>
                         <span><i class="fab fa-twitter-square"></i></span>
                     </div>
                 </div>
-                <?php if( Session::has('success') ): ?>
-                <div class="px-3" role="alert">
-                    <strong class="text-success"><?php echo e(Session::get('success')); ?></strong>
-                    </button>
-                </div>
-                <?php endif; ?>
                 <div class="card-body">
                     <form method="post">
                         <?php echo csrf_field(); ?>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Name" name="name">
+                        </div>
+                        <?php if($errors->has('name')): ?>
+                        <span class="text-danger"> <?php echo e($errors->first('name')); ?></span>
+                        <?php endif; ?>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-exclamation-circle"
+                                        aria-hidden="true"></i></span>
                             </div>
                             <input type="text" class="form-control" placeholder="Email" name="email">
 
@@ -59,13 +63,13 @@
                             <input type="checkbox">Remember Me
                         </div>
                         <div class="form-group">
-                            <button type="submit" name="btnSub" class="btn float-right login_btn">Login</button>
+                            <button type="submit" name="btnSub" class="btn float-right login_btn">Register</button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account?<a href="<?php echo e(route('register')); ?>">Sign Up</a>
+                        Don't have an account?<a href="<?php echo e(route('login')); ?>">Sign In</a>
                     </div>
                     <div class="d-flex justify-content-center">
                         <a href="#">Forgot your password?</a>
@@ -77,4 +81,4 @@
 </body>
 
 </html>
-<?php /**PATH C:\xampp\htdocs\Laravel\asm_php3\resources\views/frontend/auth/login.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp\htdocs\Laravel\asm_php3\resources\views/frontend/auth/register.blade.php ENDPATH**/ ?>

@@ -7,7 +7,13 @@
         </div>
         <div class="py-3 px-5"><a class=" btn btn-primary" href="<?php echo e(url('admin/category/add')); ?>">Add New</a></div>
     </div>
-    <div class="table-responsive">
+    <?php if( Session::has('success') ): ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <strong><?php echo e(Session::get('success')); ?></strong>
+        </button>
+    </div>
+    <?php endif; ?>
+    <div class="">
         <table class="table align-items-center mb-0">
             <thead>
                 <tr>

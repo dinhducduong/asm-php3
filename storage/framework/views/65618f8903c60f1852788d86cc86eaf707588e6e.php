@@ -28,6 +28,18 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
+                    <?php if( Session::has('error') ): ?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong><?php echo e(Session::get('error')); ?></strong>
+                        </button>
+                    </div>
+                    <?php endif; ?>
+                    <?php if( Session::has('success') ): ?>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong><?php echo e(Session::get('success')); ?></strong>
+                        </button>
+                    </div>
+                    <?php endif; ?>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Đã đăng kí </strong>: <?php echo e($count_order); ?> Học viên</li>
                         <li class="list-group-item"><strong>Giảng viên </strong>: <?php echo e($detail_course[0]->name); ?></li>

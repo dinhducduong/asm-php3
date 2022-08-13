@@ -7,6 +7,7 @@ use App\Http\Requests\RequestCategory;
 use App\Models\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -39,6 +40,8 @@ class CategoryController extends Controller
             }
             $modelCategory = new Categories();
             $modelCategory->saveCategoryAdd($params);
+            Session::flash('success', 'Thêm danh mục thành công');
+            return redirect()->route('list_category');
         }
         return view('adminhtml.category.category_view_add', [
             'title' => "Add Category"
@@ -48,7 +51,8 @@ class CategoryController extends Controller
     public function deleteCategory(Request $request)
     {
         DB::table('categories')->delete($request->id);
-        return redirect('admin/category/list');
+        Session::flash('success', 'Xóa thành công');
+        return redirect()->route('list_category');
     }
 
     public function editCategory(RequestCategory $request)
@@ -66,10 +70,9 @@ class CategoryController extends Controller
                 $params['cols']['image'] = $this->uploadFile($request->file('image'));
             }
             $modelCategory = new Categories();
-            $res = $modelCategory->saveCategoryEdit($params);
-            if ($res != null) {
-                return redirect('admin/category/list');
-            }
+            $modelCategory->saveCategoryEdit($params);
+            Session::flash('success', 'Cập nhật danh mục thành công');
+            return redirect()->route('list_category');
         }
         return view('adminhtml.category.category_view_edit', [
             'title' => "Edit Category",

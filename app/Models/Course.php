@@ -10,14 +10,8 @@ class Course extends Model
 {
     use HasFactory;
 
-    /**
-     * @var string
-     */
     protected $table = 'courses';
 
-    /**
-     * @var string[]
-     */
     protected $fillable = [
         'id',
         'categories_id',
@@ -34,9 +28,6 @@ class Course extends Model
     {
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
     public function getCourseFeature()
     {
         $data = DB::table('courses')->leftJoin('orders', 'courses.id', '=', 'orders.course_id')
@@ -48,23 +39,16 @@ class Course extends Model
         return $data;
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
     public function getCourse()
     {
         $data = DB::table('courses')
             ->select('courses.*', 'categories.title as title_cate', 'levels.title as title_levels')
             ->join('categories', 'categories.id', '=', 'courses.categories_id')
-            ->join('levels', 'levels.id', '=', 'courses.levels_id')
+            ->join('levels', 'levels.id', '=', 'courses.levels_id')->orderBy('id', 'desc')
             ->paginate(24);
         return $data;
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Support\Collection
-     */
     public function getCourseDetail($id)
     {
         $data = DB::table('courses')
@@ -77,10 +61,6 @@ class Course extends Model
         return $data;
     }
 
-    /**
-     * @param $id
-     * @return int
-     */
     public function getCountCourseUser($id)
     {
         $data = DB::table('courses')->where('users_id', $id)->count();
@@ -89,23 +69,16 @@ class Course extends Model
 
     public function saveCourseAdd($params)
     {
-        $data = array_merge($params['cols']);
-        $res = DB::table('courses')->insertGetId($data);
+        $res = DB::table('courses')->insertGetId($params['cols']);
         return $res;
     }
 
     public function saveCourseEdit($params)
     {
-        $dataUpdate = [];
-        foreach ($params['cols'] as $colName => $value) {
-            if ($colName == 'id') continue;
-            if (in_array($colName, $this->fillable)) {
-                $dataUpdate[$colName] = (strlen($value) == 0 ? null : $value);
-            }
-        }
+
         $res = DB::table($this->table)
             ->where('id', '=', $params['cols']['id'])
-            ->update($dataUpdate);
+            ->update($params['cols']);
         return $res;
     }
     public function EditCourse($id)

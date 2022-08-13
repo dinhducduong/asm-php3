@@ -4,56 +4,55 @@
 <div class="card">
     <div class="row justify-content-end">
         <div class="">
-            <h3 class="py-3 px-5">Manager Category</h3>
+            <h3 class="py-3 px-5">Manager Order</h3>
         </div>
-        <div class="py-3 px-5"><a class=" btn btn-primary" href="{{url('admin/category/add')}}">Add New</a></div>
     </div>
-    @if ( Session::has('success') )
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <strong>{{ Session::get('success') }}</strong>
-        </button>
-    </div>
-    @endif
     <div class="">
         <table class="table align-items-center mb-0">
             <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tile</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Created At</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Action</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($category as $key)
+                @foreach($list_order as $key)
                 <tr>
                     <td>
                         <div>
-                            <p class="text-xs font-weight-bold mb-0 px-2">#{{$key->id}}</p>
+                            <p class="text-xs font-weight-bold mb-0 px-2">#{{$key->order_id}}</p>
                         </div>
                     </td>
                     <td>
-                        <div class="d-flex px-2">
-
-                            <div>
-                                <img src="{{$key->image?''. Storage::url($key->image): " $key->image"}}"
-                                class="avatar avatar-sm rounded-circle me-2">
-                            </div>
-                            <div class="my-auto">
-                                <h6 class="mb-0 text-xs">{{$key->title}}</h6>
-                            </div>
+                        <div class="my-auto">
+                            <h6 class="mb-0 text-xs">{{$key->title_course}}</h6>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="my-auto">
+                            <h6 class="mb-0 text-xs">{{$key->email}}</h6>
                         </div>
                     </td>
                     <td class="align-middle text-center">
                         <div class="d-flex align-items-center">
-                            <span class="me-2 text-xs">@php
+                            <span class="me-2 text-xs">
+                                @php
                                 if($key->status == 0){
-                                echo "Disable";
+                                echo "No Payment";
                                 }elseif($key->status == 1){
-                                echo "Enable";
+                                echo "Payment Success";
                                 }
                                 @endphp</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="my-auto">
+                            <h6 class="mb-0 text-xs">{{$key->created_at}}</h6>
                         </div>
                     </td>
                     <td class="align-middle">
@@ -63,13 +62,8 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
                                 <li>
-                                    <a class="dropdown-item" href="{{url('admin/category/edit/'. $key->id)}}">
+                                    <a class="dropdown-item" href="{{url('admin/order/edit/'. $key->id)}}">
                                         Edit
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{url('admin/category/delete/'. $key->id)}}">
-                                        Delete
                                     </a>
                                 </li>
                             </ul>
@@ -80,7 +74,7 @@
             </tbody>
         </table>
         <div class="d-flex px-3">
-            {{ $category->links() }}
+            {{ $list_order->links() }}
         </div>
     </div>
 </div>

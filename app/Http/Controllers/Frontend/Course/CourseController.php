@@ -11,14 +11,11 @@ use App\Models\RegisterCourse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
+use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
 {
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function index()
     {
         $this->data = new Course();
@@ -34,14 +31,9 @@ class CourseController extends Controller
             'cate' => $data,
             'level' => $data_level,
             'user' => $data_user,
-
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function getCourseDetail(Request $request)
     {
         $this->data = new Course();
@@ -66,7 +58,11 @@ class CourseController extends Controller
                 ];
                 $modeReg = new RegisterCourse();
                 $modeReg->saveReg($params);
+                Session::flash('success', 'Đặt mua khóa học thành công');
+                return redirect()->route('detail_course', ['id' => $request->id]);
             } else {
+                Session::flash('error', 'Vui lòng đăng nhập để mua khóa học');
+                return redirect()->route('detail_course', ['id' => $request->id]);
             }
         }
         return view('frontend.course.list_course_detail', [

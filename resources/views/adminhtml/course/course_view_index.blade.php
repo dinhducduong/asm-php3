@@ -8,7 +8,13 @@
         </div>
         <div class="py-3 px-5"><a class=" btn btn-primary" href="{{url('admin/course/add')}}">Add New</a></div>
     </div>
-    <div class="table-responsive">
+    @if ( Session::has('success') )
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <strong>{{ Session::get('success') }}</strong>
+        </button>
+    </div>
+    @endif
+    <div class="">
         <table class="table align-items-center mb-0">
             <thead>
                 <tr>

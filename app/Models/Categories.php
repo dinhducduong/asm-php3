@@ -12,9 +12,6 @@ class Categories extends Model
     protected $table = 'categories';
     protected $fillable = ['title', 'image', 'status'];
 
-    /**
-     * @return mixed
-     */
     public function getCategory()
     {
         $data = Categories::orderBy('id', 'desc')->paginate(10);
@@ -23,23 +20,15 @@ class Categories extends Model
 
     public function saveCategoryAdd($params)
     {
-        $data = array_merge($params['cols']);
-        $res = DB::table('categories')->insertGetId($data);
+        $res = DB::table('categories')->insertGetId($params['cols']);
         return $res;
     }
 
     public function saveCategoryEdit($params)
     {
-        $dataUpdate = [];
-        foreach ($params['cols'] as $colName => $value) {
-            if ($colName == 'id') continue;
-            if (in_array($colName, $this->fillable)) {
-                $dataUpdate[$colName] = (strlen($value) == 0 ? null : $value);
-            }
-        }
         $res = DB::table($this->table)
             ->where('id', '=', $params['cols']['id'])
-            ->update($dataUpdate);
+            ->update($params['cols']);
 
         return $res;
     }
